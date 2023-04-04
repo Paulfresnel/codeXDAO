@@ -22,3 +22,31 @@
         background-clip: text;
         color: transparent;
 }
+
+.flex_row{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    width: 350px;
+}
+
+.button{
+    padding: 8px;
+    margin-right: 5px;
+    background-color: rgba(154, 23, 121, 0);
+    color: aliceblue;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border: 1px rgba(115, 63, 241, 1) solid;
+}
+
+.spacer{
+    width: 55%;
+    border-top: 1px rgba(54, 190, 255, 1) solid;
+    height: 5px;
+    margin: 0 auto;
+    padding-top: 15px;
+    margin-bottom: 5px;
+}

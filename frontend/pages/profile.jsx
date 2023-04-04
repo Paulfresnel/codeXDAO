@@ -35,12 +35,19 @@ export default function Profile(){
             <h2 className={styles.small_length}>{address}</h2>
             <br/>
             <div className={styles.margin_auto}>
-            <select onChange={(e)=>setChain(e)}>
+            <strong className={styles.highlighted}>CHOOSE NETWORK</strong>
+            <div>
+            <select className={styles.button} onChange={(e)=>setChain(e)}>
                 <option value='ETH_MAINNET'>ETH Mainnet</option>
                 <option value="MATIC_MAINNET">Matic Mainnet</option>
             </select>
-                <button onClick={()=>setNFTs()} value="NFTs">NFTs in Wallet</button>
-                <button onClick={()=>setTokens()} value="Tokens">Token Balances</button>
+            <div className={styles.spacer}/>
+            </div>
+            <div>What do you want to check?</div>
+            <div className={styles.flex_row}>
+                <button className={styles.button}  onClick={()=>setNFTs()} value="NFTs">NFTs in Wallet</button>
+                <button className={styles.button} onClick={()=>setTokens()} value="Tokens">Token Balances</button>
+            </div>
             </div>
             <div>
                 {display === 'NFTs' ? <div>

@@ -1,0 +1,38 @@
+.colored{
+    color: rgba(54, 190, 255, 1);
+}
+
+.centered{
+    margin: 0 auto;
+    width: 70%;
+}
+
+.white_font{
+    color: aliceblue;
+}
+
+.spacer{
+    margin: 0 auto;
+    width: 80%;
+    height: 2px;
+    border-bottom: 1px rgba(54, 190, 255, 1) solid;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.alligned{
+    margin-left: 15vw;
+}
+
+.button{
+    padding: 8px;
+    border: 1px aliceblue solid;
+    background-color: rgba(240, 248, 255, 0);
+    color: aliceblue;
+    font-size: 1.15rem;
+    border-radius: 5px;
+}
+
+.button:hover{
+    border:1px solid rgba(54, 190, 255, 1);
+}

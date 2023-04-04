@@ -8,7 +8,7 @@
 }
 
 .header_container{
-	margin-bottom: 6rem;
+	margin-bottom: 3.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -19,11 +19,24 @@
 
 }
 
+.ta_center{
+	text-align:center;
+}
 
 .header_container h1 span{
 	background: linear-gradient(140deg, rgba(54,190,255,1) 0%, rgba(115,63,241,1) 100%);
 	background-clip: text;
 	color: transparent;
+}
+
+.m_bottom{
+	margin-bottom: 25px;
+}
+
+.b_bottom{
+	height: 5px;
+	width: 30vw;
+	border-bottom: 1px rgba(54, 190, 255, 1) solid;
 }
 
 .header_container p{
@@ -54,6 +67,7 @@ border-radius: 8px;
 	align-content: center;
 	flex-wrap: wrap;
 	gap: 1rem;
+	
 }
 
 .button{
@@ -61,6 +75,7 @@ border-radius: 8px;
 flex-direction: row;
 align-items: center;
 justify-content: center;
+margin-bottom: 15px;
 
 padding: 24px 32px;
 gap: 12px;
@@ -71,9 +86,14 @@ height: 76px;
 background: rgba(0, 0, 0, 0.8);
 /* Grayscale/Metal */
 
-border: 1px solid #4E4E4E;
+border: 1px solid rgba(54, 190, 255, 1);
 border-radius: 12px;
 cursor: pointer;
+}
+
+.button:hover{
+	border: 1px  aliceblue solid;
+	color: rgba(54, 190, 255, 1);
 }
 
 .button p {
@@ -83,7 +103,13 @@ font-weight: 700;
 font-size: 20px;
 line-height: 28px;
 }
+
 .footer{
+	margin-top: 36px;
+	width: 35vw;
+	border-top: 1px solid rgba(54, 190, 255, 1);
+	padding-top: 35px;
+	margin-bottom: 35px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -92,5 +118,10 @@ line-height: 28px;
 .icons_container{
 	display: flex;
 	gap: 2rem;
-	margin-bottom: .5rem;
+	margin-bottom: 3rem;
+}
+
+.highlighted{
+	color: rgba(54, 190, 255, 1);
+	font-size: 1.4rem;
 }

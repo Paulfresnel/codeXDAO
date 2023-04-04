@@ -7,65 +7,58 @@ export default function InstructionsComponent() {
 	return (
 		<div className={styles.container}>
 			<header className={styles.header_container}>
-				<h1>
-					web3<span>DAO</span>
+				<h1 className={styles.ta_center}>
+					Codex<span>DAO</span> 
 				</h1>
+				<div className={styles.b_bottom}/>
+				<div className={styles.m_bottom}/>
 				<p>
-					Your portal to the best crypto News
+					Your <strong className={styles.highlighted}>portal</strong> to the crypto World.
+					<div className={styles.m_bottom}/>
+					Take your skills to the next level. 
 				</p>
 			</header>
 
 			<div className={styles.buttons_container}>
+			<Link href="/profile">
 			<div className={styles.button}>
-			<Link href="/profile"><p> Access profile page</p> </Link>
+			<p> Access profile page</p> 
 			</div>
-				<a
-					target={"_blank"}
-					href={"https://createweb3dapp.alchemy.com/#components"}
-				>
+			</Link>
 				
+				<Link href='/about'>
 					<div className={styles.button}>
 						{/* <img src="https://static.alchemyapi.io/images/cw3d/Icon%20Medium/lightning-square-contained-m.svg" width={"20px"} height={"20px"} /> */}
-						<p>Add Components</p>
+						<p>About CodexDAO</p>
 					</div>
-				</a>
-				<a
-					target={"_blank"}
-					href={"https://createweb3dapp.alchemy.com/#templates"}
-				>
+				</Link>
+				
+				<Link href="/swap">
 					<div className={styles.button}>
 						{/* <img src="https://static.alchemyapi.io/images/cw3d/Icon%20Medium/lightning-square-contained-m.svg" width={"20px"} height={"20px"} /> */}
-						<p>Explore Templates</p>
+						<p>Codex Swap</p>
 					</div>
-				</a>
-				<a
-					target={"_blank"}
-					href={"https://docs.alchemy.com/docs/create-web3-dapp"}
-				>
+				</Link>
+				<Link href="/docs">
 					<div className={styles.button}>
-						<img
-							src="https://static.alchemyapi.io/images/cw3d/Icon%20Large/file-eye-01-l.svg"
-							width={"20px"}
-							height={"20px"}
-						/>
-						<p>Visit Docs</p>
+						<p>Consult Documentation</p>
 					</div>
-				</a>
+				</Link>
 			</div>
 			<div className={styles.footer}>
 				
 				<div className={styles.icons_container}>
 					<div>
 						<a
-							href="https://github.com/alchemyplatform/create-web3-dapp"
+							href={undefined}
 							target={"_blank"}
 						>
-							Leave a star on Github
+							Join our Discord
 						</a>
 					</div>
 					<div>
 						<a
-							href="https://twitter.com/AlchemyPlatform"
+							href={undefined}
 							target={"_blank"}
 						>
 							Follow us on Twitter
