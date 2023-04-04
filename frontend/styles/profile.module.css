@@ -1,0 +1,24 @@
+.white_font{
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.margin_auto{
+    margin: 0 auto;
+}
+
+.small_length{
+    font-size: 0.8rem;
+    margin: 0 auto;
+}
+
+.highlighted{
+    background: linear-gradient(140deg, rgba(54, 190, 255, 1) 0%, rgba(115, 63, 241, 1) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+}
