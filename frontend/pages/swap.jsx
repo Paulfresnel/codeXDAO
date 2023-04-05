@@ -13,6 +13,8 @@ export default function CodeXSwap(){
     const [fromToken, setFromToken] = useState('');
     const [toToken, setToToken] = useState('');
     const [txErrorMessage, setTxErrorMessage] = useState('')
+    const [quoteErrorMessage, setQuoteErrorMessage] = useState('')
+
 
 
 
@@ -44,8 +46,12 @@ export default function CodeXSwap(){
     }
 
     const getPrice = async () =>{
+        try{
         if (!currentTrade.from || !currentTrade.to || !document.getElementById("from_amount").value){ 
             setTxErrorMessage('Make sure to select both tokens and input a value to transact')
+            setTimeout(()=>{
+                setTxErrorMessage('')
+            },2500)
             return
         };
     // The amount is calculated from the smallest base unit of the token. We get this by multiplying the (from amount) x (10 to the power of the number of decimal places)
@@ -61,7 +67,14 @@ export default function CodeXSwap(){
     // Use the returned values to populate the buy Amount and the estimated gas in the UI
     document.getElementById("to_amount").value = response.data.buyAmount / (10 ** currentTrade.to.decimals);
     document.getElementById("gas_estimate").innerHTML = response.data.estimatedGas;
-
+} catch(err){
+    console.log(err)
+    let errorMessage = "The token you are trying to trade do not have enough liquidity to process the trade";
+    setQuoteErrorMessage(errorMessage)
+    setTimeout(()=>{
+        setQuoteErrorMessage('')
+    },2500)
+}
 
     }
 
@@ -124,7 +137,9 @@ export default function CodeXSwap(){
                     </div>  
                     <div className={styles.gas_estimate_label}><p>Estimated Gas: <span className={styles.colored_min} id="gas_estimate"></span> wei</p></div>
                     <button disabled className="btn btn-large btn-primary btn-block" id="swap_button">Swap</button>   
-                    {txErrorMessage.length>5 && <p className={styles.tx_error}>{txErrorMessage}</p> }            
+                    {txErrorMessage.length>5 && <p className={styles.tx_error}>{txErrorMessage}</p> }    
+                    {quoteErrorMessage.length>5 && <p className={styles.tx_error}>{quoteErrorMessage}</p> }            
+        
                 </div>
             </div>
         </div>
@@ -134,13 +149,12 @@ export default function CodeXSwap(){
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Select a Token</h5>
+            <input onChange={(e)=>filterTokens(e)} className={styles.alligned} type="search" placeholder="Search for a token.."></input>
             <button id="modal_close" type="button" class="close" data-dismiss="modal" onClick={()=>closeModal()} aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div className={styles.modal_body}>
-          <input onChange={(e)=>filterTokens(e)} className={styles.alligned} type="search" placeholder="Search for a token.."></input>
             <div id="tokens_list">
                 {(!isLoading && tokensList.length >5) && tokensList.map((token)=>{
                      return <div className="token-row" key={token.address}><div onClick={(e)=>selectToken(e,token)} value={token.symbol} className={styles.token_row} >

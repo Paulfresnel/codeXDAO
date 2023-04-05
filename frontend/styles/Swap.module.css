@@ -75,6 +75,7 @@
 .alligned{
     margin: 0 auto;
     text-align: center;
+    position: fixed;
 }
 
 .flex{
@@ -110,4 +111,8 @@
     text-align: center;
     color: aliceblue;
     font-size: 2rem;
+}
+
+.tokens_list{
+    margin-top:25px;
 }
