@@ -1,0 +1,113 @@
+#window {
+    margin-top: 50px;
+    background-color: #000;
+    color: #fff;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px black;
+}
+.white_font{
+    font-family: 'Chakra Petch', sans-serif;
+}
+.swapbox_select {
+    width: 50%;
+    float: left;
+}
+
+.swapbox_select_padding{
+    width: 50%;
+    float: left;
+    padding: 5px 0;
+    color: aliceblue;
+}
+.swapbox {
+    overflow: auto;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: rgba(0, 48, 126, 0.891);
+    border-radius: 20px;
+    border: 1px solid rgba(54, 190, 255, 1);
+}
+
+.token_select {
+    padding: 5px 0;
+}
+
+.token_select:hover {
+    background-color: #464646;
+    cursor: pointer;
+
+}
+
+.tx_error{
+    text-align:center;
+    color: red;
+}
+
+.token_row {
+    padding: 5px 10px;
+}
+
+.token_row:hover {
+    background-color: #e4e4e4;
+    cursor: pointer;
+}
+
+.gas_estimate_label {
+    padding: 5px;
+    color: aliceblue;
+}
+
+.gas_estimate_label > p{
+    color: aliceblue;
+}
+
+.whote_font{
+    color: aliceblue;
+}
+
+.modal_body{
+    overflow: scroll;
+    height: 450px !important;
+    scroll-behavior: smooth;
+}
+
+.alligned{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.flex{
+    display: flex;
+    align-items: center !important;
+    justify-content: flex-start;
+}
+
+.flex > p {
+    margin-bottom: 0;
+    margin-left: 1vw;
+    font-weight: bold;
+    color: rgba(54, 190, 255, 1);
+    font-size: 1.3rem;
+}
+
+
+.image{
+    width: 30px;
+}
+
+.colored{
+    color: rgba(54, 190, 255, 1);
+    font-size: 2rem;
+}
+
+.colored_min{
+    color: rgba(54, 190, 255, 1);
+    font-size: 1.25rem;
+}
+
+.h4{
+    text-align: center;
+    color: aliceblue;
+    font-size: 2rem;
+}
