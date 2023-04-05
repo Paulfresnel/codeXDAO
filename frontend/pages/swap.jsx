@@ -66,27 +66,27 @@ export default function CodeXSwap(){
     }
 
     const filterTokens = (e) =>{
-        e.preventDefault();
-        let userInput = e.target.value
-        console.log(userInput)
+         e.preventDefault();
+        const userInput = e.target.value.toLowerCase();
 
-        let tokensList = document.getElementsByClassName('token-row')
+        const tokenSymbols = Array.from(document.querySelectorAll('.token-row > :nth-child(1)')).map(div => div.innerText.toLowerCase());
 
-        for (let i=0; i<tokensList.length;i++){
-            
-            let tokenSymbol = tokensList[i].children[0].innerText;
-
-            if(!tokenSymbol.includes(userInput)){
-                tokensList[i].style.display = "none";
-            }
-            else {
-                tokensList[i].style.display = "block";
-            }
-
+        const matchingIndices = tokenSymbols.reduce((acc, symbol, i) => {
+        if (symbol.includes(userInput)) {
+            acc.push(i);
         }
+        return acc;
+        }, []);
 
-        /* if () */
+        const tokensList = document.getElementsByClassName('token-row');
+        for (let i = 0; i < tokensList.length; i++) {
+        if (matchingIndices.includes(i)) {
+            tokensList[i].style.display = 'block';
+        } else {
+            tokensList[i].style.display = 'none';
+        }
     }
+}
 
     useEffect(()=>{
         async function fetch  (){
@@ -143,7 +143,7 @@ export default function CodeXSwap(){
           <input onChange={(e)=>filterTokens(e)} className={styles.alligned} type="search" placeholder="Search for a token.."></input>
             <div id="tokens_list">
                 {(!isLoading && tokensList.length >5) && tokensList.map((token)=>{
-                     return <div className="token-row"><div onClick={(e)=>selectToken(e,token)} value={token.symbol} className={styles.token_row} key={token.address}>
+                     return <div className="token-row" key={token.address}><div onClick={(e)=>selectToken(e,token)} value={token.symbol} className={styles.token_row} >
                       <img 
                         className={styles.token_list_img}
                         src={token.logoURI}
