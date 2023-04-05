@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .margin_auto{
@@ -40,6 +41,8 @@
     margin-bottom: 15px;
     font-size: 1rem;
     border: 1px rgba(115, 63, 241, 1) solid;
+    cursor: pointer;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .spacer{
@@ -49,4 +52,21 @@
     margin: 0 auto;
     padding-top: 15px;
     margin-bottom: 5px;
+}
+
+.homepage_btn{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px rgba(54, 190, 255, 1) solid;
+    background-color: rgba(255, 222, 173, 0);
+    color: aliceblue;
+    margin-bottom: 25px;
+    cursor: pointer;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.homepage_btn:hover{
+    color: rgba(54, 190, 255, 1);
+    border: 1px aliceblue solid;
+    zoom: 1.1;
 }

@@ -6,7 +6,7 @@ export default function Navbar() {
 	return (
 		<nav className={styles.navbar}>
 			<Link href={'/'}>
-				<img className={styles.alchemy_logo} src="/main-logo.png"></img>
+				<img className={styles.alchemy_logo} src="/codeXDAO-logo.png"></img>
 			</Link>
 			<ConnectButton></ConnectButton>
 		</nav>

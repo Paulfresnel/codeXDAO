@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Montserrat:wght@200;300&family=Rubik+Pixels&display=swap');
+
 .container{
 	color: white;
 	display: flex;
@@ -5,6 +7,7 @@
 	height: 80vh;
 	width: 100%;
 	align-items: center;
+	font-family: 'Chakra Petch', sans-serif
 }
 
 .header_container{
@@ -21,6 +24,7 @@
 
 .ta_center{
 	text-align:center;
+	font-family: 'Chakra Petch', sans-serif
 }
 
 .header_container h1 span{
@@ -124,4 +128,8 @@ line-height: 28px;
 .highlighted{
 	color: rgba(54, 190, 255, 1);
 	font-size: 1.4rem;
+}
+
+.colored{
+	color: rgba(54, 190, 255, 1);
 }

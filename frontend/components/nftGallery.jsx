@@ -143,8 +143,7 @@ export default function NftGallery({
 }
 
 function NftCard({ nft, chain }) {
-  console.log(nft)
-  console.log(chain)
+  
   if (!nft.media.includes("placeholder")){
   return (
     <div className={styles.card_container}>

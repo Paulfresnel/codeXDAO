@@ -31,6 +31,10 @@ export default function Profile(){
 
     return(
         <div className={styles.white_font}>
+        <Link href={"/"}>
+        			<button className={styles.homepage_btn}>Go back to homepage</button>
+                    </Link>
+
             <h1><span className={styles.highlighted}>Profile</span> Page</h1>
             <h2 className={styles.small_length}>{address}</h2>
             <br/>

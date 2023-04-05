@@ -1,0 +1,113 @@
+
+.white_font{
+    margin: 15px;
+    color: aliceblue;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.title{
+    text-align: center;
+    width: 100vw;
+    margin-bottom: 2.5vw;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.colored{
+    color: rgba(54, 190, 255, 1);;
+}
+
+.card{
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px rgba(54, 190, 255, 1) solid;
+}
+
+.spaced{
+    margin-top: 10px;
+    margin-left: 2vw;
+}
+
+.spaced_plus{
+    margin-top: 10px;
+    margin-left: 2vw;
+    margin-bottom: 1vw;
+}
+
+.spaced_plus_extra {
+    margin-top: 10px;
+    margin-left: 6vw;
+    margin-bottom: 1vw;
+}
+
+.flex_container{
+    margin: 0 auto;
+    width: 75%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 35px;
+}
+
+.flex_children{
+    display: flex;
+    flex-direction: column;
+}
+
+.div_block{
+    margin: 0 auto;
+    width: 35vw;
+    border-bottom: 1px rgba(54, 190, 255, 1) solid;
+    margin-bottom: 2.5vw;
+}
+
+.div_block_short {
+    margin: 0 auto;
+    width: 15vw;
+    border-bottom: 1px rgba(54, 190, 255, 1) solid;
+    margin-bottom: 2.5vw;
+    padding-bottom: 15px;
+}
+
+.shortened{
+    width: 80%;
+}
+
+.shortened_reverse {
+    width: 80%;
+    margin-left: 45px;
+}
+
+.homepage_btn {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px rgba(54, 190, 255, 1) solid;
+    background-color: rgba(255, 222, 173, 0);
+    color: aliceblue;
+    margin-bottom: 25px;
+    cursor: pointer;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.homepage_btn:hover {
+    color: rgba(54, 190, 255, 1);
+    border: 1px aliceblue solid;
+    zoom: 1.1;
+}
+
+.link_allign{
+    display: flex;
+    justify-content: center;
+}
+
+.ta_allign{
+    text-align: center;
+}
+
+.faq{
+    margin: 0 auto;
+    width: 75%;
+}
+
+.list{
+    margin-top: 5px;
+    margin-left: 4vw;
+}
