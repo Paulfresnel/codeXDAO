@@ -11,8 +11,17 @@
 }
 
 
-.alchemy_logo{
+.codex_logo{
 	width: 4rem;
 	cursor: pointer;
 	border-radius: 55px;
+}
+
+@media (max-width: 750px) {
+	.navbar{
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
 }

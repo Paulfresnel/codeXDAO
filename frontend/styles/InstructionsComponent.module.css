@@ -133,3 +133,10 @@ line-height: 28px;
 .colored{
 	color: rgba(54, 190, 255, 1);
 }
+
+@media (max-width: 750px) {
+	.button{
+		margin: 0 auto;
+		width: 85%;
+	}
+}

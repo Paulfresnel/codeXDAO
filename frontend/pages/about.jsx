@@ -17,10 +17,10 @@ export default function AboutPage(){
                 distribution system that will incentivize liquidity providers and stakers to participate in the network.
                 </p>
             </div>
-            <img src="/piechart.png"/>
+            <img className={styles.fixed_w} src="/piechart.png"/>
         </div>
         <div className={styles.flex_container}>
-            <img src="/tokenomics.png"/>
+            <img className={styles.fixed_w} src="/tokenomics.png"/>
 
             <div className={styles.flex_children}>
                 <h2 className={styles.spaced_plus_extra}> Enhanced <strong className={styles.colored}> Tokenomics</strong>  </h2>
@@ -42,7 +42,7 @@ export default function AboutPage(){
                 system similar to the distribution of Bitcoin. 
                 </p>
             </div>
-            <img src="/ethereum-mainpage.png"/>
+            <img className={styles.fixed_w} src="/ethereum-mainpage.png"/>
         </div>
         <br/>
         <div className={styles.div_block}/>

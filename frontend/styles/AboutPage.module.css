@@ -1,13 +1,14 @@
 
 .white_font{
-    margin: 15px;
+    margin: 0 auto;
+    margin: 15px 15px 5vw 15px;
     color: aliceblue;
     font-family: 'Chakra Petch', sans-serif;
 }
 
 .title{
     text-align: center;
-    width: 100vw;
+    width: 100%;
     margin-bottom: 2.5vw;
     font-family: 'Chakra Petch', sans-serif;
 }
@@ -110,4 +111,31 @@
 .list{
     margin-top: 5px;
     margin-left: 4vw;
+}
+
+
+
+@media (max-width: 750px) {
+    .flex_children {
+        display: flex;
+        flex-direction: column;
+    }
+    .flex_children > p {
+        width: 100%;
+        margin-top: 15px;
+    }
+    .flex_children > h2{
+        width: 100%;
+    }
+
+    .fixed_w{
+        width: 10px;
+        display: none;
+    }
+    .white_font{
+        margin-bottom: 15vw;
+    }
+    .white_font > h1{
+        margin-bottom: 25px;
+    }
 }

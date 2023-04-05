@@ -60,7 +60,9 @@ function MyApp({ Component, pageProps }) {
         chains={chains}
       >
         <MainLayout>
+        
           <Component {...pageProps} />
+          
         </MainLayout>
       </RainbowKitProvider>
     </WagmiConfig>
