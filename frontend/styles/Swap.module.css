@@ -116,3 +116,24 @@
 .tokens_list{
     margin-top:25px;
 }
+
+.connect{
+    color: orange;
+    text-align: center;
+    font-size: 1.35rem;
+}
+
+.swap_btn{
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    border: 2px rgb(181, 54, 255) solid;
+    width: 25%;
+    color: rgba(54, 190, 255, 1);
+    font-weight: bold;
+    font-size: 1.25rem;
+    background-image: linear-gradient(to right, 0% blue, 55% red, yellow 100%);
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(54, 190, 255, 1);
+}
