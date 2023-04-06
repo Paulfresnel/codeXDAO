@@ -1,8 +1,8 @@
+import axios from 'axios';
+import qs from 'qs';
 import { useEffect, useState } from "react";
-import styles from "../styles/Swap.module.css"
-import axios from 'axios'
-import qs from 'qs'
 import { useAccount } from "wagmi";
+import styles from "../styles/Swap.module.css";
 
 
 export default function CodeXSwap(){
@@ -14,14 +14,14 @@ export default function CodeXSwap(){
     const [fromToken, setFromToken] = useState('');
     const [toToken, setToToken] = useState('');
     const [txErrorMessage, setTxErrorMessage] = useState('')
+    const [swapErrorMessage, setSwapErrorMessage] = useState('')
     const [quoteErrorMessage, setQuoteErrorMessage] = useState('')
-    const {address} = useAccount()
+    const {address} = useAccount();
 
-
-
+    let tokensListInDisplay;
 
     const openModal = (side)=>{
-        document.getElementById("token_modal").style.display = 'block';
+        document.getElementById("token_modal").style.display = 'block';        
         setCurrentSelectSide(side);
     }  
 
@@ -48,7 +48,7 @@ export default function CodeXSwap(){
         console.log("currentTrade:" , currentTrade);
     }
 
-    const getPrice = async () =>{
+    const getPrice = async (wallet) =>{
         try{
         if (!currentTrade.from || !currentTrade.to || !document.getElementById("from_amount").value){ 
             setTxErrorMessage('Make sure to select both tokens and input a value to transact')
@@ -63,15 +63,22 @@ export default function CodeXSwap(){
     sellToken: currentTrade.from.address,
     buyToken: currentTrade.to.address,
     sellAmount: amount,
+    takerAddress : wallet,
+    feeRecipient:"0x438Ce7f768E70A27673C7c5A68A3637faB2F12eB",
+    buyTokenPercentageFee: 0.01,
+    affiliateAddress:"0xa8aac589a67ecfade31efde49a062cc21d68a64e",
+    
   }
   // Fetch the swap price.
     const response = await axios.get(`https://api.0x.org/swap/v1/price?${qs.stringify(params)}`);
     console.log("Price: ", response);
     // Use the returned values to populate the buy Amount and the estimated gas in the UI
     document.getElementById("to_amount").value = response.data.buyAmount / (10 ** currentTrade.to.decimals);
-    document.getElementById("gas_estimate").innerHTML = response.data.estimatedGas;
+    let gasSpent = response.data.estimatedGas;
+    setGas(gasSpent)
 } catch(err){
     console.log(err)
+    console.log("err specific:", err)
     let errorMessage = "The token you are trying to trade do not have enough liquidity to process the trade";
     setQuoteErrorMessage(errorMessage)
     setTimeout(()=>{
@@ -80,14 +87,21 @@ export default function CodeXSwap(){
   }
 }
 
-async  function  trySwap(){
+async  function  trySwap(address){
+    try{
   // The address, if any, of the most recently used account that the caller is permitted to access
     let accounts = await ethereum.request({ method: "eth_accounts" });
+    console.log(accounts)
     let takerAddress = address;
   // Log the the most recently used address in our MetaMask wallet
     console.log("takerAddress: ", takerAddress);
     // Pass this as the account param into getQuote() we built out earlier. This will return a JSON object trade order. 
-    const  swapQuoteJSON = await  getQuote(takerAddress);
+    const  swapQuoteJSON = await getQuote(takerAddress);
+    if (!swapQuoteJSON.allowanceTarget){
+        setSwapErrorMessage(swapQuoteJSON.reason)
+        return;
+    }
+    console.log("swap quote here:", swapQuoteJSON)
     // index.js
 
 
@@ -102,40 +116,94 @@ async  function  trySwap(){
     const ERC20TokenContract = new web3.eth.Contract(erc20abi, fromTokenAddress);
     console.log("setup ERC20TokenContract: ", ERC20TokenContract);
 
+    const maxApproval = new BigNumber(2).pow(256).minus(1);
+    console.log("approval amount: ", maxApproval);
+
+    // Grant the allowance target (the 0x Exchange Proxy) an  allowance to spend our tokens. Note that this is a txn that incurs fees. 
+    if (!swapQuoteJSON.reason || swapQuoteJSON.allowanceTarget){
+    const tx = await ERC20TokenContract.methods.approve(
+        swapQuoteJSON.allowanceTarget,
+        maxApproval,
+    )
+    .send({ from: takerAddress })
+    .then(tx => {
+    console.log("tx: ", tx)
+  })
+
+  // Perform the swap
+    const  receipt = await  web3.eth.sendTransaction(swapQuoteJSON);
+    console.log("receipt: ", receipt);
+}
+else {
+    setSwapErrorMessage(swapQuoteJSON.reason);
+    return;
+}
+    } catch(err){
+        console.log("err:",err)
+        let errorMessage = "Your swap failed! Please try again later"
+        setSwapErrorMessage(errorMessage)
+        setTimeout(()=>{ setSwapErrorMessage('')}, 2500)
+    }
+
 }
 
-const getQuote = async () =>{
+const getQuote = async (wallet) =>{
+    console.log("param passed in getQuote:", wallet);
         try{
         if (!currentTrade.from || !currentTrade.to || !document.getElementById("from_amount").value){ 
             setTxErrorMessage('Make sure to select both tokens and input a value to transact')
             setTimeout(()=>{
                 setTxErrorMessage('')
             },2500)
-            return
+            return;
         };
     // The amount is calculated from the smallest base unit of the token. We get this by multiplying the (from amount) x (10 to the power of the number of decimal places)
     let  amount = Number(document.getElementById("from_amount").value * 10 ** currentTrade.from.decimals);
-    const params = {
-    sellToken: currentTrade.from.address,
-    buyToken: currentTrade.to.address,
-    sellAmount: amount,
-    takerAddress: address
-  };
+    
+    let params = {
+     sellToken : currentTrade.from.address,
+     buyToken : currentTrade.to.address,
+     sellAmount : amount,
+     takerAddress : wallet,
+     feeRecipient:"0x438Ce7f768E70A27673C7c5A68A3637faB2F12eB",
+     buyTokenPercentageFee: 0.01,
+     affiliateAddress:"0xa8aac589a67ecfade31efde49a062cc21d68a64e",
+
+    }
+    const fetchOptions = {
+     method: 'GET',
+    headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    }
+};
+    console.log("fetch params:", params );
+    console.log("fetching quote");
   // Fetch the swap price.
-    const response = await axios.get(`https://api.0x.org/swap/v1/quote?${qs.stringify(params)}`);
-    console.log("Quote: ", response);
+    const response = await fetch(
+        `https://api.0x.org/swap/v1/quote?${qs.stringify(params)}`, fetchOptions
+        );
+    console.log("response:", response);
+    let responseJSON = await response.json();
+    console.log("Quote: ", responseJSON);
+    if (responseJSON.reason){
+        setSwapErrorMessage(responseJSON.reason)
+        return;
+    }
+    //response.data.sources => To check through which platform this trade will be executed
     // Use the returned values to populate the buy Amount and the estimated gas in the UI
-    document.getElementById("to_amount").value = response.data.buyAmount / (10 ** currentTrade.to.decimals);
-    document.getElementById("gas_estimate").innerHTML = response.data.estimatedGas;
+    document.getElementById("to_amount").value = responseJSON.buyAmount / (10 ** currentTrade.to.decimals);
+    document.getElementById("gas_estimate").innerHTML = responseJSON.estimatedGas /( 10** 18);
+    return responseJSON;
 } catch(err){
-    console.log(err)
+    console.log(err);
     let errorMessage = "The token you are trying to trade do not have enough liquidity to process the trade";
-    setQuoteErrorMessage(errorMessage)
+    setQuoteErrorMessage(errorMessage);
     setTimeout(()=>{
         setQuoteErrorMessage('')
     },2500)
   }
 }
+
 
     const filterTokens = (e) =>{
          e.preventDefault();
@@ -149,18 +217,20 @@ const getQuote = async () =>{
         }
         return acc;
         }, []);
-
-        const tokensList = document.getElementsByClassName('token-row');
-        for (let i = 0; i < tokensList.length; i++) {
+        if (!tokensListInDisplay){
+            tokensListInDisplay = document.getElementsByClassName('token-row');
+        }
+        for (let i = 0; i < tokensListInDisplay.length; i++) {
         if (matchingIndices.includes(i)) {
-            tokensList[i].style.display = 'block';
+            tokensListInDisplay[i].style.display = 'block';
         } else {
-            tokensList[i].style.display = 'none';
+            tokensListInDisplay[i].style.display = 'none';
         }
     }
 }
 
     useEffect(()=>{
+
         async function fetch  (){
             setIsloading(true);
             let response = await axios.get('https://tokens.coingecko.com/uniswap/all.json');
@@ -195,9 +265,11 @@ const getQuote = async () =>{
                         </div>
                     </div>  
                     <div className={styles.gas_estimate_label}><p>Estimated Gas: <span className={styles.colored_min} id="gas_estimate"></span> wei</p></div>
-                    {address ? <button disabled className={styles.swap_btn} id="swap_button">Swap</button> : <p className={styles.connect}>Connect your Wallet to be able to swap</p>  }
+                    {address ? <button  onClick={()=>trySwap(address)} className={styles.swap_btn} id="swap_button">Swap</button> : <p className={styles.connect}>Connect your Wallet to be able to swap</p>  }
                     {txErrorMessage.length>5 && <p className={styles.tx_error}>{txErrorMessage}</p> }    
-                    {quoteErrorMessage.length>5 && <p className={styles.tx_error}>{quoteErrorMessage}</p> }            
+                    {quoteErrorMessage.length>5 && <p className={styles.tx_error}>{quoteErrorMessage}</p> } 
+                    {swapErrorMessage.length>5 && <p className={styles.tx_error}>{swapErrorMessage}</p> }            
+        
         
                 </div>
             </div>
@@ -208,7 +280,7 @@ const getQuote = async () =>{
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <input onChange={(e)=>filterTokens(e)} className={styles.alligned} type="search" placeholder="Search for a token.."></input>
+            <input onChange={(e)=>filterTokens(e)} className={styles.alligned} id="search" type="search" placeholder="Search for a token.."></input>
             <button id="modal_close" type="button" class="close" data-dismiss="modal" onClick={()=>closeModal()} aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
