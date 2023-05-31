@@ -30,19 +30,24 @@ export default function InstructionsComponent() {
 				
 				<Link href='/about'>
 					<div className={styles.button}>
-						{/* <img src="https://static.alchemyapi.io/images/cw3d/Icon%20Medium/lightning-square-contained-m.svg" width={"20px"} height={"20px"} /> */}
 						<p>About CodeX<strong className={styles.colored}>DAO</strong></p>
 					</div>
 				</Link>
 				
-				<Link href="/swap">
+				<Link target="_blank" href="/swap">
 					<div className={styles.button}>
-						{/* <img src="https://static.alchemyapi.io/images/cw3d/Icon%20Medium/lightning-square-contained-m.svg" width={"20px"} height={"20px"} /> */}
-						<p><strong  className={styles.colored}>CodeX</strong>  Swap
+						<p>CodeX  <strong  className={styles.colored}>Swap</strong>
 						<br/>
 						<em>(under construction)</em></p>
 					</div>
 				</Link>
+				<a target="_blank" href="https://codex-dao-blockexplorer.vercel.app/">
+					<div className={styles.button}>
+						<p>CodeX <strong  className={styles.colored}>Block Explorer</strong>
+						<br/>
+						</p>
+					</div>
+				</a>
 				<Link href="/docs">
 					<div className={styles.button}>
 						<p>Consult <strong  className={styles.colored}>Documentation</strong></p>
